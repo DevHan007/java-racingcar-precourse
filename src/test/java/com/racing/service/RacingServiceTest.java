@@ -35,4 +35,20 @@ class RacingServiceTest {
                 .contains("123", "1234", "12354", "1235");
     }
 
+    @Test
+    @DisplayName("자동차 전진 테스트")
+    void movingForwardCar() {
+        RacingService racingService = new RacingService();
+        MovingType movingType = racingService.movingTypeCheck(4);
+        assertThat(movingType).isEqualTo(MovingType.GO);
+    }
+
+    @Test
+    @DisplayName("자동차 중지 테스트")
+    void movingStopCar() {
+        RacingService racingService = new RacingService();
+        MovingType movingType = racingService.movingTypeCheck(3);
+        assertThat(movingType).isEqualTo(MovingType.STOP);
+    }
+
 }
