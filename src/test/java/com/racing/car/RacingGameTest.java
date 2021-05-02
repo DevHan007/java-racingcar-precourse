@@ -5,7 +5,9 @@ import com.racing.service.RacingService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -23,6 +25,28 @@ class RacingGameTest {
                 .hasSize(24)
                 .filteredOn(car -> "123".equals(car.getCarName()))
                 .hasSize(6);
+    }
+
+    @Test
+    @DisplayName("전체 GameLaps 진행 후 이름 기준으로 분리 테스트")
+    void getTrackRecord() {
+        RacingService racingService = new RacingService();
+        List<String> divideCarNames = racingService.divideCarNames("하하하,제주항공,아키스,우아한형제");
+        List<Car> carList = Arrays.asList(
+                new Car("하하하",0),
+                new Car("제주항공",0),
+                new Car("아키스",0),
+                new Car("우아한형제",0),
+                new Car("하하하",1),
+                new Car("제주항공",0),
+                new Car("아키스",1),
+                new Car("우아한형제",0)
+        );
+        RacingGame racingGame = new RacingGame(carList);
+        Map<String, List<Integer>> trackRecord = racingGame.getTrackRecord(divideCarNames);
+        assertThat(trackRecord)
+                .containsKeys("하하하", "제주항공","아키스", "우아한형제");
+
     }
 
 }
