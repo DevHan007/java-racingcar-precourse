@@ -51,4 +51,17 @@ class RacingServiceTest {
         assertThat(movingType).isEqualTo(MovingType.STOP);
     }
 
+    @Test
+    @DisplayName("전제 GameLaps를 진행한 후 자동차 정보 저장하는 기능 테스트")
+    void playGame() {
+        RacingService racingService = new RacingService();
+        List<String> divideCarNames = racingService.divideCarNames("123,1234,12354,1235");
+        List<Car> resultCarNames = racingService.createRacingGameCars(divideCarNames);
+        List<Car> cars = racingService.playGame(resultCarNames, divideCarNames, 5);
+        assertThat(cars)
+                .hasSize(24)
+                .filteredOn(car -> "123".equals(car.getCarName()))
+                .hasSize(6);
+    }
+
 }

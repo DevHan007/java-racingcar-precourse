@@ -32,4 +32,22 @@ public class RacingService {
     private boolean checkGoMoving(int inputMovingNumber) {
         return inputMovingNumber > DECISION_MOVING_NUMBER;
     }
+
+    public List<Car> playGame(List<Car> cars, List<String> divideCarNames, int gameLap) {
+        for (int lap = 0; lap < gameLap; lap++) {
+            cars = oneTurnRacingGame(cars, divideCarNames);
+        }
+        return cars;
+    }
+
+    private List<Car> oneTurnRacingGame(List<Car> cars, List<String> divideCarNames) {
+        for (String carName : divideCarNames) {
+            cars.add(new Car(carName, movingTypeCheck(getRandomNumber()).getMovingValue()));
+        }
+        return cars;
+    }
+
+    public int getRandomNumber() {
+        return (int) (Math.random() * 9);
+    }
 }
