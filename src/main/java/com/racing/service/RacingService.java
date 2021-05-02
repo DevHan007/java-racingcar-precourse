@@ -2,9 +2,7 @@ package com.racing.service;
 
 import com.racing.car.Car;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class RacingService {
     private static final int DECISION_MOVING_NUMBER = 3;
@@ -49,5 +47,29 @@ public class RacingService {
 
     public int getRandomNumber() {
         return (int) (Math.random() * 9);
+    }
+
+    public List<String> winRacingGame(Map<String, Integer> racingGameMap) {
+        int winnerPosition = getWinnerPosition(racingGameMap);
+        List<String> winners = new ArrayList<>();
+        for (String mapKey : racingGameMap.keySet()) {
+            winners = checkRacingWinner(racingGameMap, winners, winnerPosition, mapKey);
+        }
+        return winners;
+    }
+
+    private int getWinnerPosition(Map<String, Integer> racingGameMap) {
+        List<Integer> carPositions = new ArrayList<>();
+        for (String mapKey : racingGameMap.keySet()) {
+            carPositions.add(racingGameMap.get(mapKey));
+        }
+        return Collections.max(carPositions);
+    }
+
+    private List<String> checkRacingWinner(Map<String, Integer> racingGameMap, List<String> winners, int winnerPosition, String key) {
+        if (racingGameMap.get(key) == winnerPosition) {
+            winners.add(key);
+        }
+        return winners;
     }
 }

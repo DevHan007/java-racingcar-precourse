@@ -4,7 +4,9 @@ import com.racing.car.Car;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -62,6 +64,23 @@ class RacingServiceTest {
                 .hasSize(24)
                 .filteredOn(car -> "123".equals(car.getCarName()))
                 .hasSize(6);
+    }
+
+    @Test
+    @DisplayName("최종 우승자 선정 테스트 ")
+    void getWinner() {
+        RacingService racingService = new RacingService();
+        Map<String, Integer> racingGameMap = new HashMap<>();
+        racingGameMap.put("하하하", 5);
+        racingGameMap.put("우아한", 5);
+        racingGameMap.put("제주항공", 4);
+        racingGameMap.put("아키스", 1);
+
+        List<String> racingWinner = racingService.winRacingGame(racingGameMap);
+        assertThat(racingWinner)
+                .contains("하하하", "우아한");
+
+
     }
 
 }
