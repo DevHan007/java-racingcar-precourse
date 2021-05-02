@@ -42,4 +42,20 @@ public class RacingGame {
         return carRecords;
     }
 
+    public Map<String, Integer> getTrackRecordSum(Map<String, List<Integer>> trackRecords, int lap) {
+        Map<String, Integer> recordSum = new HashMap<>();
+        for (String mapKey : trackRecords.keySet()) {
+            recordSum.put(mapKey, getRecordSum(trackRecords.get(mapKey), lap));
+        }
+        return recordSum;
+    }
+
+    private int getRecordSum(List<Integer> carPositions, int lap) {
+        int positionSum = 0;
+        for (int trackIndex = 0; trackIndex <= lap; trackIndex++) {
+            positionSum = positionSum + carPositions.get(trackIndex);
+        }
+        return positionSum;
+    }
+
 }

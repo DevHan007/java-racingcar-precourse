@@ -49,4 +49,32 @@ class RacingGameTest {
 
     }
 
+    @Test
+    @DisplayName("GameLap 별로 각 자동차 객체 누적 position 정보 추출하는 테스트")
+    void getTrackRecordSum() {
+        RacingService racingService = new RacingService();
+        List<String> divideCarNames = racingService.divideCarNames("하하하,제주항공,아키스,우아한형제");
+        List<Car> carList = Arrays.asList(
+                new Car("하하하",0),
+                new Car("제주항공",0),
+                new Car("아키스",0),
+                new Car("우아한형제",0),
+                new Car("하하하",1),
+                new Car("제주항공",0),
+                new Car("아키스",1),
+                new Car("우아한형제",0),
+                new Car("하하하",1),
+                new Car("제주항공",1),
+                new Car("아키스",1),
+                new Car("우아한형제",0)
+        );
+        RacingGame racingGame = new RacingGame(carList);
+        Map<String, List<Integer>> trackRecord = racingGame.getTrackRecord(divideCarNames);
+        Map<String, Integer> trackRecordSum = racingGame.getTrackRecordSum(trackRecord, 2);
+        assertThat(trackRecordSum)
+                .containsKeys("하하하", "제주항공","아키스", "우아한형제")
+                .containsValues(2,1,2,0);
+
+    }
+
 }
