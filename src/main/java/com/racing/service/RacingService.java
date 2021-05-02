@@ -16,7 +16,7 @@ public class RacingService {
     public List<Car> createRacingGameCars(List<String> inputCarNames) {
         List<Car> cars = new ArrayList<>();
         for (String carName : inputCarNames) {
-            Car car = new Car(carName, 0);
+            Car car = new Car(carName, MovingType.STOP.getMovingValue());
             cars.add(car);
         }
         return cars;
